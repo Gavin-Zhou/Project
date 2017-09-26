@@ -2,6 +2,7 @@
 
 <script type="text/javascript">
 var DOMAIN = document.domain;
+
 var WDURL = "<?php echo site_url()?>";
 var SCHEME= "<?php echo sys_skin()?>";
 try{
