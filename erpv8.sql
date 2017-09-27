@@ -924,6 +924,7 @@ CREATE TABLE `ci_storage` (
   `groupx` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '',
   `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '',
   `type` tinyint(4) DEFAULT '0',
+  `category` tinyint(4) DEFAULT '1',
   `address` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '',
   `isDelete` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -934,7 +935,7 @@ CREATE TABLE `ci_storage` (
 -- ----------------------------
 -- Records of ci_storage
 -- ----------------------------
-
+INSERT INTO `ci_storage` VALUES (1,'总仓','1',0,0,0,0,'','',0,0,'',0);
 -- ----------------------------
 -- Table structure for `ci_unit`
 -- ----------------------------
