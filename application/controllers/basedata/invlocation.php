@@ -22,6 +22,7 @@ class Invlocation extends CI_Controller {
 			$v[$arr]['name']        = $row['name'];
 			$v[$arr]['phone']       = $row['phone'];
 			$v[$arr]['type']        = intval($row['type']);
+			$v[$arr]['category']    = intval($row['category']);
 		}
 		$json['status'] = 200;
 		$json['msg']    = 'success'; 

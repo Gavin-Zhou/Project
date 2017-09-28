@@ -50,7 +50,7 @@ function initGrid() {
 			width: 60,
 			fixed: !0,
 			align: "center",
-			formatter: Public.operFmatter
+			formatter: operationFormatter
 		}, {
 			name: "locationNo",
 			index: "locationNo",
@@ -119,11 +119,22 @@ function initGrid() {
 		}
 	})
 }
-function statusFmatter(a, b, c) {
-	var d = a === !0 ? "已禁用" : "已启用",
-		e = a === !0 ? "ui-label-default" : "ui-label-success";
-	return '<span class="set-status ui-label ' + e + '" data-delete="' + a + '" data-id="' + c.id + '">' + d + "</span>"
+function operationFormatter(a,b,c) {
+    if (c.category != 0) {
+    	Public.operFmatter
+        return '<div class="operating" + "data-id"="' + c.id + '">' + '<span class="ui-icon ui-icon-pencil" title="修改">' + '</span>' + '<span class="ui-icon ui-icon-trash" title="删除">' + '</span>' + '</div>';
+    }
+    return '<span/>';
 }
+function statusFmatter(a, b, c) {
+    if (c.category != 0) {
+        var d = a === !0 ? "已禁用" : "已启用",
+            e = a === !0 ? "ui-label-default" : "ui-label-success";
+        return '<span class="set-status ui-label ' + e + '" data-delete="' + a + '" data-id="' + c.id + '">' + d + "</span>";
+    }
+	return '<span/>';
+}
+
 var handle = {
 	operate: function(a, b) {
 		if ("add" == a) var c = "新增仓库",
