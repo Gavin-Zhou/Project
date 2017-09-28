@@ -102,8 +102,8 @@ $("#username").text(parent.SYSTEM.realName);
             <li><!--<span class="bulk-import">导入</span>--><a tabid="setting-vendorList" data-right="PUR_QUERY" tabTxt="供应商管理" parentOpen="true" rel="pageTab" href="<?=site_url('settings/vendor_list')?>">供应商管理</a></li>
             <li><a tabid="sales-salesList" data-right="SA_QUERY" tabTxt="销货记录" parentOpen="true" rel="pageTab" href="<?=site_url('scm/invSa?action=initSaleList')?>">销售记录</a></li>
             <li><a tabid="purchase-salesList" data-right="PU_QUERY" tabTxt="采购记录" parentOpen="true" rel="pageTab" href="<?=site_url('scm/invPu?action=initPurList')?>">采购记录</a></li>
-        	<li><a href="<?=site_url('scm/receipt?action=initReceipt')?>" rel="pageTab" tabid="money-receiptList" tabTxt="收款记录" data-right="RECEIPT_QUERY" parentOpen="true">收款记录</a></li>
-            <li><a href="<?=site_url('scm/payment?action=initPay')?>" rel="pageTab" tabid="money-paymentList" tabTxt="付款记录" data-right="PAYMENT_QUERY" parentOpen="true">付款记录</a></li>
+<!--        	<li><a href="--><?//=site_url('scm/receipt?action=initReceipt')?><!--" rel="pageTab" tabid="money-receiptList" tabTxt="收款记录" data-right="RECEIPT_QUERY" parentOpen="true">收款记录</a></li>-->
+<!--            <li><a href="--><?//=site_url('scm/payment?action=initPay')?><!--" rel="pageTab" tabid="money-paymentList" tabTxt="付款记录" data-right="PAYMENT_QUERY" parentOpen="true">付款记录</a></li>-->
         	<li><a href="<?=site_url('report/sales_detail')?>" rel="pageTab" tabid="report-salesDetail" tabTxt="销售明细表" data-right="SAREPORTDETAIL_QUERY" parentOpen="true">销售明细表</a></li>
             <li><a href="<?=site_url('report/pu_detail_new')?>" rel="pageTab" tabid="report-puDetail" tabTxt="采购明细表" data-right="PUREOORTDETAIL_QUERY" parentOpen="true">采购明细表</a></li>
         	<li style="border-bottom:none; line-height: 42px; "><a tabid="storage-transfersList" data-right="TF_QUERY" tabTxt="调拨记录" parentOpen="true" rel="pageTab" href="<?=site_url('scm/invTf?action=initTfList')?>">调拨记录</a></li>
