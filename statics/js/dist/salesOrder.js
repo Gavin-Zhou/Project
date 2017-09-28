@@ -263,7 +263,7 @@ var curRow, curCol, loading, SYSTEM = system = parent.SYSTEM,
 			}, {
 				name: "goods",
 				label: "商品",
-				nameExt: '<span id="barCodeInsert">扫描枪录入</span>',
+				// nameExt: '<span id="barCodeInsert">扫描枪录入</span>',
 				width: 300,
 				classes: "goods",
 				formatter: c,
