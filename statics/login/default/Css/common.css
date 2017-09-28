@@ -300,11 +300,11 @@ div.untreated .RelevanState{ color:#82d156}
 
 /*登录*/
 .LoginBox{ width:400px; margin-left:auto; margin-right:auto; margin-top:10px;}
-.LoginLog{ height:224px; background:url(../Images/loginlogo.png) no-repeat left top;}
-.Loginc{  height:153px; background:url(../Images/loginbox.png) no-repeat left top; margin-top:20px;}
-.loginBtn{ width:400px; height:60px; background:url(../Images/loginbtn.png) no-repeat left top; border:none; background-color:transparent; cursor:pointer}
-.checkboxfalse{ height:29px; display:block; background:url(../Images/checkbox.png) no-repeat left top; cursor:pointer; padding-left:40px; line-height:29px; font-size:16px; font-weight:bold}
-.checkboxtrue{ height:29px; display:block; background:url(../Images/checkboxtrue.png) no-repeat left top; cursor:pointer; padding-left:40px; line-height:29px; font-size:16px; font-weight:bold}
+.LoginLog{ height:181px; background:url(../Images/qin.png) center top;}
+.Loginc{  height:153px; background:url(../Images/loginbox.png) no-repeat center top; margin-top:20px;}
+.loginBtn{ width:400px; height:60px; background:url(../Images/loginbtn.png) no-repeat center top; border:none; background-color:transparent; cursor:pointer}
+.checkboxfalse{ height:29px; display:block; background:url(../Images/checkbox.png) no-repeat center top; cursor:pointer; padding-left:40px; line-height:29px; font-size:16px; font-weight:bold}
+.checkboxtrue{ height:29px; display:block; background:url(../Images/checkboxtrue.png) no-repeat center top; cursor:pointer; padding-left:40px; line-height:29px; font-size:16px; font-weight:bold}
 .logininput{ height:60px; margin-top:10px; width:280px; background-color:transparent; font-size:20px;}
 .loginInputc{ margin-left:95px;}
 .checkMMBox{ clear:both; margin-top:40px;}
