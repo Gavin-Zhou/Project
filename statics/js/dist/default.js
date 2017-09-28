@@ -487,18 +487,18 @@ var dataReflush, list = {
 		target: "setting-auxiliary"
 	},
 	
-	payCategoryList: {
-		name: "支出类别",
-		href: "../settings/category_list?typeNumber=paccttype",
-		dataRight: "TRADETYPE_QUERY",
-		target: "setting-auxiliary"
-	},
-	recCategoryList: {
-		name: "收入类别",
-		href: "../settings/category_list?typeNumber=raccttype",
-		dataRight: "TRADETYPE_QUERY",
-		target: "setting-auxiliary"
-	},
+	// payCategoryList: {
+	// 	name: "支出类别",
+	// 	href: "../settings/category_list?typeNumber=paccttype",
+	// 	dataRight: "TRADETYPE_QUERY",
+	// 	target: "setting-auxiliary"
+	// },
+	// recCategoryList: {
+	// 	name: "收入类别",
+	// 	href: "../settings/category_list?typeNumber=raccttype",
+	// 	dataRight: "TRADETYPE_QUERY",
+	// 	target: "setting-auxiliary"
+	// },
 	
 	unitList: {
 		name: "计量单位",
@@ -506,12 +506,12 @@ var dataReflush, list = {
 		dataRight: "UNIT_QUERY",
 		target: "setting-auxiliary"
 	},
-	settlementCL: {
-		name: "结算方式",
-		href: "../settings/settlement_category_list",
-		dataRight: "Assist_QUERY",
-		target: "setting-auxiliary"
-	},
+	// settlementCL: {
+	// 	name: "结算方式",
+	// 	href: "../settings/settlement_category_list",
+	// 	dataRight: "Assist_QUERY",
+	// 	target: "setting-auxiliary"
+	// },
 	assistingProp: {
 		name: "辅助属性",
 		href: "../settings/assistingprop",
