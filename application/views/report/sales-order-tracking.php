@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
 =no">
 <meta name="renderer" content="webkit">
-<title>在线进销存</title>
+<title>仓库管理</title>
 <link href="<?php echo base_url()?>/statics/css/common.css?ver=20140430" rel="stylesheet">
 <link href="<?php echo base_url()?>/statics/css/<?php echo sys_skin()?>/ui.min.css?ver=20140430" rel="stylesheet">
 <script src="<?php echo base_url()?>/statics/js/common/seajs/2.1.1/sea.js?ver=20140430" id="seajsnode"></script>
