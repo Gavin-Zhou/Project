@@ -16,46 +16,46 @@ function initDom() {
 		e = {
 			customertype: "客户",
 			supplytype: "供应商",
-			trade: "商品",
-			paccttype: "支出",
-			raccttype: "收入"
+			trade: "商品"
+			// paccttype: "支出",
+			// raccttype: "收入"
 		};
 	for (var f in e) d.push('<li data-id="' + f + '">' + e[f] + "</li>");
 	c.append(d.join(""));
-	var g = $("#assisting-category-select li[data-id=" + typeNumber + "]");
-	1 == g.length ? (g.addClass("cur"), b = 0) : (b = ["number", typeNumber], $("#custom-assisting").parent().addClass("cur")), a(typeNumber, e[typeNumber], !0), $("#custom-assisting").combo({
-		data: "../basedata/assist/getAssistType?action=getAssistType",
-		text: "name",
-		value: "number",
-		width: 170,
-		ajaxOptions: {
-			formatData: function(a) {
-				var a = a.data.items;
-				a.unshift({
-					number: "",
-					name: "选择其他类别"
-				});
-				for (var b = 0, c = a.length; c > b; b++) a[b].name = a[b].name.replace("类别", ""), e[a[b].number] && (a.splice(b, 1), b--, c--);
-				return a.length > 1 && $("#custom-assisting").parent().show(), a
-			}
-		},
-		defaultSelected: b,
-		defaultFlag: !1,
-		callback: {
-			onChange: function(b) {
-				if (b.number) {
-					var c = b.number,
-						d = b.name;
-					$("#assisting-category-select li").removeClass("cur"), $("#custom-assisting").parent().addClass("cur"), a(c, d)
-				} else $("#custom-assisting").getCombo().selectByValue(conditions.typeNumber, !1)
-			},
-			beforeChange: function(a) {
-				var b = a.number,
-					c = a.name;
-				return _oType = conditions.typeNumber, _oName = conditions.name, conditions.typeNumber = b, conditions.name = c, verifyRight(rightsAction.query) ? !0 : (conditions.typeNumber = _oType, conditions.name = _oName, !1)
-			}
-		}
-	})
+	// var g = $("#assisting-category-select li[data-id=" + typeNumber + "]");
+	// 1 == g.length ? (g.addClass("cur"), b = 0) : (b = ["number", typeNumber], $("#custom-assisting").parent().addClass("cur")), a(typeNumber, e[typeNumber], !0), $("#custom-assisting").combo({
+	// 	data: "../basedata/assist/getAssistType?action=getAssistType",
+	// 	text: "name",
+	// 	value: "number",
+	// 	width: 170,
+	// 	ajaxOptions: {
+	// 		formatData: function(a) {
+	// 			var a = a.data.items;
+	// 			a.unshift({
+	// 				number: "",
+	// 				name: "选择其他类别"
+	// 			});
+	// 			for (var b = 0, c = a.length; c > b; b++) a[b].name = a[b].name.replace("类别", ""), e[a[b].number] && (a.splice(b, 1), b--, c--);
+	// 			return a.length > 1 && $("#custom-assisting").parent().show(), a
+	// 		}
+	// 	},
+	// 	defaultSelected: b,
+	// 	defaultFlag: !1,
+	// 	callback: {
+	// 		onChange: function(b) {
+	// 			if (b.number) {
+	// 				var c = b.number,
+	// 					d = b.name;
+	// 				$("#assisting-category-select li").removeClass("cur"), $("#custom-assisting").parent().addClass("cur"), a(c, d)
+	// 			} else $("#custom-assisting").getCombo().selectByValue(conditions.typeNumber, !1)
+	// 		},
+	// 		beforeChange: function(a) {
+	// 			var b = a.number,
+	// 				c = a.name;
+	// 			return _oType = conditions.typeNumber, _oName = conditions.name, conditions.typeNumber = b, conditions.name = c, verifyRight(rightsAction.query) ? !0 : (conditions.typeNumber = _oType, conditions.name = _oName, !1)
+	// 		}
+	// 	}
+	// })
 }
 function initEvent() {
 	$("#btn-add").click(function(a) {
