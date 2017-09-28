@@ -44,7 +44,7 @@ function initEvent() {
 	})
 }
 function initGrid() {
-	var a = ["操作", "仓库编号", "仓库名称", "状态"],
+	var a = ["操作", "仓库编号", "仓库类型", "仓库名称", "状态"],
 		b = [{
 			name: "operate",
 			width: 60,
@@ -55,6 +55,10 @@ function initGrid() {
 			name: "locationNo",
 			index: "locationNo",
 			width: 150
+		}, {
+			name: "category",
+			width: 100,
+			formatter: categoryFormatter
 		}, {
 			name: "name",
 			index: "name",
@@ -133,6 +137,11 @@ function statusFmatter(a, b, c) {
         return '<span class="set-status ui-label ' + e + '" data-delete="' + a + '" data-id="' + c.id + '">' + d + "</span>";
     }
 	return '<span/>';
+}
+function categoryFormatter(a,b,c) {
+	var d = c.category;
+	var e = d === 0 ? "总仓" : "子仓";
+	return '<span>' + e + '</span>';
 }
 
 var handle = {
