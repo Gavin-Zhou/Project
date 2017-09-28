@@ -1,4 +1,4 @@
-function setTabHeight() {
+﻿function setTabHeight() {
 	var a = $(window).height(),
 		b = $("#main-bd"),
 		c = a - b.offset().top;
@@ -341,18 +341,18 @@ var dataReflush, list = {
 //		target: "report-sales"
 //	},
     
-	contactDebt: {
-		name: "往来单位欠款表",
-		href: "../report/contact_debt_new",
-		dataRight: "ContactDebtReport_QUERY",
-		target: "report-sales"
-	},
-	salesProfit: {
-		name: "销售利润表",
-		href: "../report/sales_profit",
-		dataRight: "SAREPORTINV_QUERY",
-		target: "report-sales"
-	},
+//	contactDebt: {
+//		name: "往来单位欠款表",
+//		href: "../report/contact_debt_new",
+//		dataRight: "ContactDebtReport_QUERY",
+//		target: "report-sales"
+//	},
+//	salesProfit: {
+//		name: "销售利润表",
+//		href: "../report/sales_profit",
+//		dataRight: "SAREPORTINV_QUERY",
+//		target: "report-sales"
+//	},
 	//contactDebt: {
 //		name: "往来单位欠款表",
 //		href: "../report/contactDebt_detail?action=detail",

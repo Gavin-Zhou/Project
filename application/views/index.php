@@ -2,7 +2,6 @@
 
 <script type="text/javascript">
 var DOMAIN = document.domain;
-
 var WDURL = "<?php echo site_url()?>";
 var SCHEME= "<?php echo sys_skin()?>";
 try{
@@ -433,7 +432,7 @@ function markupVension(){
 		};
 	};
 	
-	$('#col-side').prepend(imgModel);
+//	$('#col-side').prepend(imgModel);
 };
 
 </script>
@@ -506,12 +505,12 @@ var _hmt = _hmt || [];
             <ul class="sub-nav" id="report-storage">
             </ul>
           </div>
-          
+          <!--
           <div class="nav-item nav-fund last">
             <h3>资金报表</h3>
             <ul class="sub-nav" id="report-money">
             </ul>
-          </div>
+          </div>-->
           
        </div>
       </li>
@@ -542,20 +541,23 @@ var _hmt = _hmt || [];
   </div>
   <div id="col-main">
     <div id="main-hd" class="cf">
-      <div class="tit"> <a class="company" id="companyName" href="javascript:;" title=""></a> <span class="period" id="period"></span> </div>
+      <div class="tit"> 
+<!--<a class="company" id="companyName" href="javascript:;" title=""></a> -->
+<span class="period" id="period"></span> </div>
       <ul class="user-menu">
       	<!--<li class="qq"><a href="" target="_blank" id="mobile" title="手机版">手机版</a></li>
       	<li class="space">|</li>-->
+<!--
       	<li class="qq"><a href="" onClick="return false;" id="wpa">QQ咨询：209887082</a></li>
       	<li class="space">|</li>
         
       	<li class="telphone">电话：400-800-1234</li>
         <li class="space">|</li>
-      	<li id="sysSkin">换肤</li>
-        <li class="space">|</li>
         
       	<li><a class="service-tab" data-tab="3">服务支持</a></li>
-		<li class="space">|</li>
+		<li class="space">|</li>-->
+      	<li id="sysSkin">换肤</li>
+        <li class="space">|</li>
         <!-- 
         <li><a href="javascript:void(0);" onClick="window.location.href='';return false;">返回助手</a></li>-->
         <!--<li class="space">|</li>-->

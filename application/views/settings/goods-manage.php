@@ -1,4 +1,4 @@
-<?php $this->load->view('header');?>
+﻿<?php $this->load->view('header');?>
  
 <script type="text/javascript">
 var DOMAIN = document.domain;
@@ -86,7 +86,9 @@ body{background: #fff;}
         <li class="tabItem">库存预警</li>
         <li class="tabItem">高级</li>
         <li class="tabItem">期初设置</li>
+<!--
         <li class="tabItem">套餐</li>
+-->
 	</ul>
 </div>
 <div id="tabContent">
