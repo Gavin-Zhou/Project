@@ -304,9 +304,10 @@ class InvTf extends CI_Controller {
 		foreach ($data['entries'] as $arr=>$row) {
 			(float)$row['qty'] < 0 && str_alert(-1,'商品数量要为数字，请输入有效数字！'); 
 			intval($row['outLocationId']) < 1 && str_alert(-1,'请选择调出仓库仓库！'); 
-			intval($row['inLocationId']) < 1  && str_alert(-1,'请选择调入仓库仓库！'); 
-			intval($row['outLocationId']) == intval($row['inLocationId']) && str_alert(-1,'调出仓库不能与调入仓库相同！'); 
-			!in_array($row['outLocationId'],$storage) && str_alert(-1,$row['outLocationName'].'不存在或不可用！');
+			intval($row['inLocationId']) < 1  && str_alert(-1,'请选择调入仓库仓库！');
+			intval($row['outLocationId']) == intval($row['inLocationId']) && str_alert(-1,'调出仓库不能与调入仓库相同！');
+            intval($row['outLocationId']) != 1 &&  intval($row['inLocationId']) != 1 && str_alert(-1,'子仓不能调货至子仓！');
+            !in_array($row['outLocationId'],$storage) && str_alert(-1,$row['outLocationName'].'不存在或不可用！');
 			!in_array($row['inLocationId'],$storage) && str_alert(-1,$row['inLocationName'].'不存在或不可用！');
 				
 			//库存判断 修改不验证
