@@ -456,12 +456,12 @@ var dataReflush, list = {
 		dataRight: "STAFF_QUERY",
 		target: "setting-base"
 	},
-	settlementaccount: {
-		name: "账户管理",
-		href: "../settings/settlement_account",
-		dataRight: "SettAcct_QUERY",
-		target: "setting-base"
-	},
+	// settlementaccount: {
+	// 	name: "账户管理",
+	// 	href: "../settings/settlement_account",
+	// 	dataRight: "SettAcct_QUERY",
+	// 	target: "setting-base"
+	// },
 	//shippingAddress: {
 //		name: "发货地址管理",
 //		href: "../settings/shippingaddress",

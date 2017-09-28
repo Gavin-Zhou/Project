@@ -482,12 +482,12 @@ var _hmt = _hmt || [];
           </ul>
         </div>
       </li>           
-      <li class="item item-money"> <a href="javascript:void(0);" class="money main-nav">资金<span class="arrow">&gt;</span></a>
-        <div class="sub-nav-wrap single-nav">
-          <ul class="sub-nav" id="money"> 
-          </ul>
-        </div>
-      </li>
+<!--      <li class="item item-money"> <a href="javascript:void(0);" class="money main-nav">资金<span class="arrow">&gt;</span></a>-->
+<!--        <div class="sub-nav-wrap single-nav">-->
+<!--          <ul class="sub-nav" id="money"> -->
+<!--          </ul>-->
+<!--        </div>-->
+<!--      </li>-->
       <li class="item item-report"> <a href="javascript:void(0);" class="report main-nav">报表<span class="arrow">&gt;</span></a>
         <div class="sub-nav-wrap group-nav group-nav-b0 report-nav cf">
           <div class="nav-item nav-pur">
