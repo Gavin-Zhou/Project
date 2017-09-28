@@ -12,7 +12,7 @@ if (!function_exists('is_ajax')) {
 if (!function_exists('sys_skin')) {
 	function sys_skin() {
 		$ci = &get_instance();
-		return $ci->input->cookie('skin') ? $ci->input->cookie('skin') : 'green';
+		return $ci->input->cookie('skin') ? $ci->input->cookie('skin') : 'blue';
 	}
 }
 
