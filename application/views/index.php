@@ -556,8 +556,8 @@ var _hmt = _hmt || [];
         
       	<li><a class="service-tab" data-tab="3">服务支持</a></li>
 		<li class="space">|</li>-->
-      	<li id="sysSkin">换肤</li>
-        <li class="space">|</li>
+<!--      	<li id="sysSkin">换肤</li>-->
+<!--        <li class="space">|</li>-->
         <!-- 
         <li><a href="javascript:void(0);" onClick="window.location.href='';return false;">返回助手</a></li>-->
         <!--<li class="space">|</li>-->
