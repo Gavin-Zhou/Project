@@ -8,7 +8,8 @@ var curRow, curCol, curArrears, loading, urlParam = Public.urlParam(),
 	disEditable = urlParam.disEditable,
 	THISPAGE = {
 		init: function(a) {
-			this.mod_PageConfig = Public.mod_PageConfig.init("transfers"), this.loadGrid(a), this.initDom(a), this.initCombo(), this.addEvent(), a.id > 0 && a.checked ? this.disableEdit() : (this.editable = !0, $("#grid").jqGrid("setGridParam", {
+			// alert(JSON(a));
+			this.mod_PageConfig = Public.mod_PageConfig.init("transfers"), this.loadGrid(a), this.initDom(a), this.initCombo(), this.addEvent(), a.id > 0 /*&& a.checked*/ ? this.disableEdit() : (this.editable = !0, $("#grid").jqGrid("setGridParam", {
 				cellEdit: !0
 			}))
 		},
@@ -29,24 +30,25 @@ var curRow, curCol, curArrears, loading, urlParam = Public.urlParam(),
 					}
 				}
 			});
-			var b = '<a id="savaAndAdd" class="ui-btn ui-btn-sp mrb">保存并新增</a><a id="save" class="ui-btn">保存</a>',
+			var b = '<a id="savaAndAdd" class="ui-btn ui-btn-sp mrb">新增</a><a id="save" class="ui-btn">保存</a>',
 				c = '<a id="add" class="ui-btn ui-btn-sp mrb">新增</a><a href="../scm/invTf/toPdf?action=toPdf" target="_blank" id="print" class="ui-btn mrb">打印</a><a id="edit" class="ui-btn mrb">保存</a>',
-				d = '<a id="add" class="ui-btn ui-btn-sp mrb">新增</a><a href="../scm/invTf/toPdf?action=toPdf" target="_blank" id="print" class="ui-btn mrb">打印</a><b></b></a>',
-				e = "",
-				f = "",
+				d = '<a id="add" class="ui-btn ui-btn-sp mrb">新增</a><a href="../scm/invTf/toPdf?action=toPdf" target="_blank" id="print" class="ui-btn mrb">打印</a>',
+				e = '<a class="ui-btn" id="audit">接受库存</a>',
+				f = '<a class="ui-btn" id="reAudit">已接受库存</a>',
 				g = "";
-			billRequiredCheck ? (e = '<a class="ui-btn" id="audit">审核</a>', f = '<a class="ui-btn" id="reAudit">反审核</a>') : this.$_checkName.parent().hide();
+			// Bernardo：调拨单审核与反审核，改为接受与拒绝
+			// billRequiredCheck ? (e = '<a class="ui-btn" id="audit">审核</a>', f = '<a class="ui-btn" id="reAudit">反审核</a>') : this.$_checkName.parent().hide();
 			var h = '<a class="ui-btn-prev" id="prev" title="上一张"><b></b></a><a class="ui-btn-next" id="next" title="下一张"><b></b></a>';
-			if (b += g, this.btn_edit = c, this.btn_audit = e, this.btn_view = d, this.btn_reaudit = f, this.btn_tempSave = g, a.id > 0) {
+			if (b += g, this.btn_edit = c, this.btn_audit = e, this.btn_reaudit = f,this.btn_view = d, this.btn_tempSave = g, a.id > 0) {
 				if (this.$_number.text(a.billNo), this.$_date.val(a.date), a.description && this.$_note.val(a.description), $("#grid").jqGrid("footerData", "set", {
 					qty: a.totalQty,
 					amount: a.totalAmount
 				}), "list" !== urlParam.flag && (h = ""), "edit" === a.status) {
-					var i = "<span id=groupBtn>" + c + e + "</span>" + h;
+					var i = "<span id=groupBtn>" + d + e + "</span>" + h;
 					a.temp || (i += g), this.$_toolBottom.html(i), !a.temp
 				} else a.checked ? ($("#mark").addClass("has-audit"), this.$_toolBottom.html('<span id="groupBtn">' + d + f + "</span>" + h)) : this.$_toolBottom.html('<span id="groupBtn">' + d + "</span>" + h);
 				this.transfersListIds = parent.transfersListIds || [], this.idPostion = $.inArray(String(a.id), this.transfersListIds), this.idLength = this.transfersListIds.length, 0 === this.idPostion && $("#prev").addClass("ui-btn-prev-dis"), this.idPostion === this.idLength - 1 && $("#next").addClass("ui-btn-next-dis"), this.$_userName.html(a.userName), this.$_modifyTime.html(a.modifyTime), this.$_createTime.html(a.createTime), this.$_checkName.html(a.checkName)
-			} else billRequiredCheck ? this.$_toolBottom.html("<span id=groupBtn>" + b + e + "</span>") : this.$_toolBottom.html('<span id="groupBtn">' + b + "</span>"), this.$_userName.html(SYSTEM.realName || ""), this.$_modifyTime.parent().hide(), this.$_createTime.parent().hide(), this.$_checkName.parent().hide();
+			} else billRequiredCheck ? this.$_toolBottom.html("<span id=groupBtn>" + b + "</span>") : this.$_toolBottom.html('<span id="groupBtn">' + b + "</span>"), this.$_userName.html(SYSTEM.realName || ""), this.$_modifyTime.parent().hide(), this.$_createTime.parent().hide(), this.$_checkName.parent().hide();
 			disEditable && (THISPAGE.disableEdit(), this.$_toolBottom.hide())
 		},
 		loadGrid: function(a) {
@@ -622,7 +624,7 @@ var curRow, curCol, curArrears, loading, urlParam = Public.urlParam(),
 				},
 				cellEdit: !0,
 				datatype: "clientSide"
-			}).trigger("reloadGrid"), b(), "edit" === a.status ? this.editable || (c.enableEdit(), $("#groupBtn").html(c.btn_edit + c.btn_audit), $("#mark").removeClass("has-audit")) : this.editable && (c.disableEdit(), $("#groupBtn").html(c.btn_view + c.btn_reaudit), $("#mark").addClass("has-audit"))
+			}).trigger("reloadGrid"), b(), "edit" === a.status ? this.editable || (c.enableEdit(), $("#groupBtn").html(c.btn_edit + c.btn_audit), $("#mark").removeClass("has-audit")) : this.editable && (c.disableEdit(), $("#groupBtn").html(c.btn_view), $("#mark").addClass("has-audit"))
 		},
 		initCombo: function() {
 			this.goodsCombo = Business.billGoodsCombo($(".goodsAuto"), {
@@ -766,10 +768,11 @@ var curRow, curCol, curArrears, loading, urlParam = Public.urlParam(),
 					content: "正在保存，请稍后..."
 				});
 				var d = THISPAGE.getPostData();
+                // a.$_toolBottom.hide();
 				d && ("edit" === originalData.stata && (d.id = originalData.id, d.stata = "edit"), c.addClass("ui-btn-dis"), Public.ajaxPost("../scm/invTf/add?action=add", {
 					postData: JSON.stringify(d)
 				}, function(b) {
-					c.removeClass("ui-btn-dis"), 200 === b.status ? (a.$_modifyTime.html((new Date).format("yyyy-MM-dd hh:mm:ss")).parent().show(), a.$_createTime.html((new Date).format("yyyy-MM-dd hh:mm:ss")).parent().show(), originalData.id = b.data.id, billRequiredCheck ? a.$_toolBottom.html('<span id="groupBtn">' + a.btn_edit + a.btn_audit + "</span>") : a.$_toolBottom.html('<span id="groupBtn">' + a.btn_edit + "</span>"), parent.Public.tips({
+					c.removeClass("ui-btn-dis"), 200 === b.status ? (a.$_modifyTime.html((new Date).format("yyyy-MM-dd hh:mm:ss")).parent().show(), a.$_createTime.html((new Date).format("yyyy-MM-dd hh:mm:ss")).parent().show(), originalData.id = b.data.id, a.$_toolBottom.html('<span id="groupBtn">' + a.btn_view + "</span>"), a.disableEdit(), parent.Public.tips({
 						content: "保存成功！"
 					})) : parent.Public.tips({
 						type: 1,
@@ -791,27 +794,32 @@ var curRow, curCol, curArrears, loading, urlParam = Public.urlParam(),
 					})
 				}
 			}), $(".wrapper").on("click", "#savaAndAdd", function(b) {
-				b.preventDefault();
-				var c = $(this);
-				if (c.hasClass("ui-btn-dis")) return void parent.Public.tips({
-					type: 2,
-					content: "正在保存，请稍后..."
-				});
-				var d = THISPAGE.getPostData();
-				d && (c.addClass("ui-btn-dis"), Public.ajaxPost("../scm/invTf/addNew?action=addNew", {
-					postData: JSON.stringify(d)
-				}, function(b) {
-					if (c.removeClass("ui-btn-dis"), 200 === b.status) {
-						a.$_number.text(b.data.billNo), $("#grid").clearGridData(), $("#grid").clearGridData(!0);
-						for (var d = 1; 8 >= d; d++) $("#grid").jqGrid("addRowData", d, {});
-						a.newId = 9, a.$_note.val(""), parent.Public.tips({
-							content: "保存成功！"
-						})
-					} else parent.Public.tips({
-						type: 1,
-						content: b.msg
-					})
-				}))
+                b.preventDefault(), Business.verifyRight("TF_ADD") && parent.tab.overrideSelectedTabItem({
+                    tabid: "storage-transfers",
+                    text: "调拨单",
+                    url: "../scm/invTf?action=initTf"
+                })
+				// b.preventDefault();
+				// var c = $(this);
+				// if (c.hasClass("ui-btn-dis")) return void parent.Public.tips({
+				// 	type: 2,
+				// 	content: "正在保存，请稍后..."
+				// });
+				// var d = THISPAGE.getPostData();
+				// d && (c.addClass("ui-btn-dis"), Public.ajaxPost("../scm/invTf/addNew?action=addNew", {
+				// 	postData: JSON.stringify(d)
+				// }, function(b) {
+				// 	if (c.removeClass("ui-btn-dis"), 200 === b.status) {
+				// 		a.$_number.text(b.data.billNo), $("#grid").clearGridData(), $("#grid").clearGridData(!0);
+				// 		for (var d = 1; 8 >= d; d++) $("#grid").jqGrid("addRowData", d, {});
+				// 		a.newId = 9, a.$_note.val(""), parent.Public.tips({
+				// 			content: "保存成功！"
+				// 		})
+				// 	} else parent.Public.tips({
+				// 		type: 1,
+				// 		content: b.msg
+				// 	})
+				// }))
 			}), $(".wrapper").on("click", "#add", function(a) {
 				a.preventDefault(), Business.verifyRight("TF_ADD") && parent.tab.overrideSelectedTabItem({
 					tabid: "storage-transfers",
@@ -839,36 +847,40 @@ var curRow, curCol, curArrears, loading, urlParam = Public.urlParam(),
 					THISPAGE.reloadData(a.data), $("#prev").removeClass("ui-btn-prev-dis"), loading && loading.close()
 				})), void 0)
 			}), $(".wrapper").on("click", "#audit", function(b) {
-				if (b.preventDefault(), Business.verifyRight("TF_CHECK")) {
-					var c = $(this),
-						d = THISPAGE.getPostData({
-							checkSerNum: !0
-						});
-					d && c.ajaxPost("../scm/invTf/checkInvTf?action=checkInvTf", {
-						postData: JSON.stringify(d)
-					}, function(b) {
-						200 === b.status ? (originalData.id = b.data.id, $("#mark").addClass("has-audit"), a.$_checkName.html(SYSTEM.realName).parent().show(), $("#edit").hide(), a.disableEdit(), $("#groupBtn").html(a.btn_view + a.btn_reaudit), parent.Public.tips({
-							content: "审核成功！"
-						})) : parent.Public.tips({
-							type: 1,
-							content: b.msg
-						})
-					})
-				}
-			}), $(".wrapper").on("click", "#reAudit", function(b) {
-				if (b.preventDefault(), Business.verifyRight("TF_UNCHECK")) {
-					var c = $(this);
-					c.ajaxPost("../scm/invTf/rsBatchCheckInvTf?action=rsBatchCheckInvTf", {
-						id: originalData.id
-					}, function(b) {
-						200 === b.status ? ($("#mark").removeClass(), a.$_checkName.html(""), $("#edit").show(), a.enableEdit(), $("#groupBtn").html(a.btn_edit + a.btn_audit), parent.Public.tips({
-							content: "反审核成功！"
-						})) : parent.Public.tips({
-							type: 1,
-							content: b.msg
-						})
-					})
-				}
+                b.preventDefault();
+                var c = $(this);
+                if (c.hasClass("ui-btn-dis")) return void parent.Public.tips({
+                    type: 2,
+                    content: "正在保存，请稍后..."
+                });
+                var d = THISPAGE.getPostData();
+                d && ("edit" === originalData.stata && (d.id = originalData.id, d.stata = "edit"), c.addClass("ui-btn-dis"), Public.ajaxPost("../scm/invTf/confirm", {
+                	postData: JSON.stringify(d),
+					id: urlParam.id
+                }, function(b) {
+                	c.removeClass("ui-btn-dis"), 200 === b.status ? (a.$_modifyTime.html((new Date).format("yyyy-MM-dd hh:mm:ss")).parent().show(), $('#mark').addClass("has-audit"), $('#edit').hide(), a.disableEdit(), a.$_createTime.html((new Date).format("yyyy-MM-dd hh:mm:ss")).parent().show(), originalData.id = b.data.id, a.$_toolBottom.html('<span id="groupBtn">' + a.btn_reaudit + "</span>"), parent.Public.tips({
+                		content: "已接受库存调货！"
+                	})) : parent.Public.tips({
+                		type: 1,
+                		content: b.msg
+                	})
+                }))
+				// if (b.preventDefault(), Business.verifyRight("TF_CHECK")) {
+				// 	var c = $(this),
+				// 		d = THISPAGE.getPostData({
+				// 			checkSerNum: !0
+				// 		});
+				// 	d && c.ajaxPost("../scm/invTf/checkInvTf?action=checkInvTf", {
+				// 		postData: JSON.stringify(d)
+				// 	}, function(b) {
+				// 		200 === b.status ? (originalData.id = b.data.id, $("#mark").addClass("has-audit"), a.$_checkName.html(SYSTEM.realName).parent().show(), $("#edit").hide(), a.disableEdit(), $("#groupBtn").html(a.btn_view + a.btn_reaudit), parent.Public.tips({
+				// 			content: "接受库存！"
+				// 		})) : parent.Public.tips({
+				// 			type: 1,
+				// 			content: b.msg
+				// 		})
+				// 	})
+				// }
 			}), $("#config").show().click(function(b) {
 				a.mod_PageConfig.config()
 			}), $(window).resize(function(a) {

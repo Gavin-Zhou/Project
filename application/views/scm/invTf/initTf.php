@@ -62,7 +62,7 @@ $(document).keydown(function(event) {
           <span id="userName"></span>
         </li>
         <li>
-          <label>审核人:</label>
+          <label>接收人:</label>
           <span id="checkName"></span>
         </li>
         <li>

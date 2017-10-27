@@ -112,17 +112,38 @@ class InvTf extends CI_Controller {
 				'description','totalQty','uid','userName','modifyTime'),$data,NULL);
 			$this->db->trans_begin();
 			$iid = $this->mysql_model->insert('invoice',$info);
-			$this->invoice_info($iid,$data);
+//			$this->invoice_info($iid,$data);
 			if ($this->db->trans_status() === FALSE) {
 			    $this->db->trans_rollback();
 				str_alert(-1,'SQL错误'); 
 			} else {
 			    $this->db->trans_commit();
 				$this->common_model->logs('新增调拨单编号：'.$info['billNo']);
-				str_alert(200,'success',array('id'=>intval($iid))); 
+				str_alert(200,'success',array('id'=>intval($iid)));
+				return $iid;
 			}
 		}
 		str_alert(-1,'提交的是空数据'); 
+    }
+
+
+    public function confirm() {
+        $this->common_model->checkpurview(145);
+        $data = $this->input->post('postData',TRUE);
+        $id = $this->input->post('id', TRUE);
+        if (strlen($data)>0) {
+
+            $data = $this->validform((array)json_decode($data, true));
+            $this->invoice_info($id,$data);
+            if ($this->db->trans_status() == FALSE) {
+                $this->db->trans_rollback();
+                str_alert(-1,'SQL错误');
+            } else {
+                $this->db->trans_commit();
+                $this->common_model->logs("库存转移成功");
+                str_alert(200, 'success',array('id'=>intval($iid)));
+            }
+        }
     }
 	
 	//新增
@@ -361,6 +382,10 @@ class InvTf extends CI_Controller {
 			$this->mysql_model->insert('invoice_info',$v);
 			$this->mysql_model->insert('invoice_info',$s);
 		}
+		$finalId = "id=".$iid;
+        $this->common_model->logs($finalId);
+        $this->mysql_model->update('invoice', 'checked=1', $finalId);
+        $this->common_model->logs($finalId);
 	}
 	 
 }
