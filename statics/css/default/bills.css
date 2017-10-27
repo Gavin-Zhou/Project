@@ -39,7 +39,7 @@
 .ui-state-active .ui-icon {
 	background-image: url(img/ui-icons.png)/*{iconsActive}*/;
 }
-.has-audit{ width: 150px; height: 74px; background: url(img/audit.png) 0 0 no-repeat; position: absolute; right: 40px; bottom: 65px; }
+.has-audit{ width: 150px; height: 74px; background: url(img/accept.png) 0 0 no-repeat; position: absolute; right: 40px; bottom: 65px; }
 .line{ line-height:0; height:0; border:none; border-bottom:1px dashed #CCC; color:#CCC; font-size:0; margin:18px 0; }
 .ui-icon-folder-open{ display:inline-block; vertical-align:middle; margin:0 0 0 3px; }
 #bottomField{position: fixed;  top: 0;  right: 25px;  background-color: rgba(138, 138, 138, 0.21); border-radius: 0px 0px 3px 3px;  padding: 8px;}
