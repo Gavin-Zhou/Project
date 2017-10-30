@@ -16,7 +16,8 @@ class Data_model extends CI_Model{
 					if(d.highQty>=0,d.highQty,b.highQty) as highQty,
 					(sum(a.qty) - if(d.highQty>=0,d.highQty,b.highQty)) as qty1,
 					(sum(a.qty) - if(d.lowQty>=0,d.lowQty,b.lowQty)) as qty2,
-					c.name as locationName
+					c.name as locationName,
+					sum(a.preNumber) as preNumber
 		        from '.$this->db->dbprefix('invoice_info').' as a 
 					left join 
 						(select id,name,number,spec,unitName,unitid,lowQty,highQty,categoryId,categoryName from '.$this->db->dbprefix('goods').' where isDelete=0) as b 

@@ -133,7 +133,18 @@ var curRow, curCol, loading = null,
 					formatoptions: {
 						decimalPlaces: qtyPlaces
 					}
-				}],
+				}, {
+                    name: "preNumber",
+                    label: "预购量",
+                    width: 100,
+                    title: !1,
+                    align: "right",
+                    editable: !0,
+                    formatter: "number",
+                    formatoptions: {
+                        decimalPlaces: qtyPlaces
+                    }
+                }],
 				cmTemplate: {
 					sortable: !1
 				},
@@ -176,6 +187,44 @@ var curRow, curCol, loading = null,
 							0 > g ? $("#grid").jqGrid("setCell", a, "change", g, "red") : $("#grid").jqGrid("setCell", a, "change", g)
 						}
 					}
+
+                    if ("preNumber" == b) {
+                        var g = $("#grid").jqGrid("getRowData", a);
+                        // var f = $("#grid").jqGrid("getCell", a, e - 1);
+                        // if (!isNaN(parseFloat(f))) {
+                        //     $("#" + a).find("td:eq(-1)").removeClass("red");
+                        //     var g = parseFloat(c) - parseFloat(f);
+                        //     0 > g ? $("#grid").jqGrid("setCell", a, "change", g, "red") : $("#grid").jqGrid("setCell", a, "change", g)
+                        // }
+
+                        // var f = $("#grid").jqGrid("getCell", a, e - 1);
+                        // $("#grid").jqGrid("setCell", a, "preNumber",parseFloat(c) - 20)
+                        e = {
+                            invId: g.invId,
+                            invNumber: g.invNumber,
+                            invName: g.invName,
+                            skuId: g.skuId || -1,
+                            skuName: g.skuName || "",
+                            invSpec: g.invSpec,
+                            locationId: g.locationId,
+                            locationName: g.locationName,
+                            unitId: g.unitId,
+                            mainUnit: g.unitName,
+                            invCost: g.invCost,
+                            qty: g.qty,
+                            checkInventory: g.checkInventory,
+                            change: g.change,
+                            preNumber: g.preNumber
+                        }
+                        Public.ajaxPost("../scm/invOi/updatePreNumber?action=updatePreNumber", {
+                            postData: JSON.stringify(e)
+                        }, function(b) {
+                            200 === b.status ? '' : parent.Public.tips({
+                                type: 1,
+                                content: b.msg
+                            })
+                        })
+                    }
 				},
 				loadError: function() {}
 			})
@@ -207,7 +256,8 @@ var curRow, curCol, loading = null,
 					invCost: g.invCost,
 					qty: g.qty,
 					checkInventory: g.checkInventory,
-					change: g.change
+					change: g.change,
+					preNumber: g.preNumber
 				}, a.push(e)
 			}
 			return a

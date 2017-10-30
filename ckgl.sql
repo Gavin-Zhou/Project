@@ -1,4 +1,4 @@
-/*
+﻿/*
 Navicat MySQL Data Transfer
 
 Source Server         : root
@@ -444,6 +444,7 @@ CREATE TABLE `ci_invoice_info` (
   `udf06` text ,
   `udf07` text ,
   `udf08` text ,
+  `preNumber` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `type` (`transType`),
   KEY `billdate` (`billDate`),
@@ -632,7 +633,7 @@ INSERT INTO `ci_menu` VALUES ('94', '启用', '63', '63,94', '2', '0', 'INVLOCTI
 INSERT INTO `ci_menu` VALUES ('95', '禁用', '68', '68,95', '2', '0', 'INVLOCTION_UPDATE', '1', 'trade', '1', '0', '0', '');
 INSERT INTO `ci_menu` VALUES ('96', '启用', '68', '68,96', '2', '0', 'INVLOCTION_UPDATE', '1', 'trade', '1', '0', '0', '');
 INSERT INTO `ci_menu` VALUES ('97', '职员管理', '0', '97', '1', '0', 'STAFF_QUERY', '1', 'trade', '1', '0', '0', '');
--- INSERT INTO `ci_menu` VALUES ('98', '账号管理', '0', '98', '1', '0', 'SettAcct_QUERY', '1', 'trade', '1', '0', '0', '');
+INSERT INTO `ci_menu` VALUES ('98', '账号管理', '0', '98', '1', '0', 'SettAcct_QUERY', '1', 'trade', '1', '0', '0', '');
 INSERT INTO `ci_menu` VALUES ('99', '导入', '11', '11,99', '2', '0', '', '1', 'trade', '1', '0', '0', '');
 INSERT INTO `ci_menu` VALUES ('100', '审核', '14', '14,100', '2', '0', 'IO_CHECK', '1', 'trade', '1', '0', '0', '');
 INSERT INTO `ci_menu` VALUES ('101', '反审核', '14', '14,101', '2', '0', 'IO_UNCHECK', '1', 'trade', '1', '0', '0', '');
@@ -739,6 +740,10 @@ INSERT INTO `ci_menu` VALUES ('202', '库存预警', '0', '202', '1', '0', 'INVE
 INSERT INTO `ci_menu` VALUES ('203', '合同上传', '1', '1,203', '2', '99', '', '1', 'trade', '1', '0', '0', '');
 INSERT INTO `ci_menu` VALUES ('204', '合同查看', '1', '1,204', '2', '99', '', '1', 'trade', '1', '0', '0', '');
 INSERT INTO `ci_menu` VALUES ('205', '合同删除', '1', '1,205', '2', '99', '', '1', 'trade', '1', '0', '0', '');
+INSERT INTO `ci_menu` VALUES ('206', '新增备份', '84', '84,206', '2', '0', 'BACKUP_ADD', '1', 'trade', '1', '0', '0', '');
+INSERT INTO `ci_menu` VALUES ('207', '恢复', '84', '84,207', '2', '0', 'BACKUP_RECOVER', '1', 'trade', '1', '0', '0', '');
+INSERT INTO `ci_menu` VALUES ('208', '删除备份', '84', '84,208', '2', '0', 'BACKUP_DELETE', '1', 'trade', '1', '0', '0', '');
+
 
 -- ----------------------------
 -- Table structure for `ci_options`

@@ -769,12 +769,13 @@ class InvOi extends CI_Controller {
 		}
 		$where .= $this->common_model->get_location_purview();
 		$having = $showZero == 1 ? ' HAVING qty=0' : '';   
-		$list = $this->data_model->get_inventory($where.' GROUP BY a.invId,a.locationId '.$having.' limit '.$rows*($page-1).','.$rows);  
+		$list = $this->data_model->get_inventory($where.' GROUP BY a.invId,a.locationId '.$having.' limit '.$rows*($page-1).','.$rows);
 		foreach ($list as $arr=>$row) {
 		    $v[$arr]['assistName']    = $row['categoryName'];
 			$v[$arr]['invSpec']       = $row['invSpec'];
-			$v[$arr]['locationId']    = $locationId > 0 ? intval($row['locationId']) : 0;
-			$v[$arr]['skuName']       = '';
+//			$v[$arr]['locationId']    = $locationId > 0 ? intval($row['locationId']) : 0;
+            $v[$arr]['locationId']    = intval($row['locationId']);
+            $v[$arr]['skuName']       = '';
 		    $v[$arr]['qty']           = (float)$row['qty'];
 			$v[$arr]['locationName']  = $row['locationName'];
 			$v[$arr]['assistId']      = 0;
@@ -783,7 +784,8 @@ class InvOi extends CI_Controller {
 			$v[$arr]['skuId']         = 0;
 			$v[$arr]['invId']         = intval($row['invId']);
 			$v[$arr]['invNumber']     = $row['invNumber']; 
-			$v[$arr]['invName']       = $row['invName']; 	 
+			$v[$arr]['invName']       = $row['invName'];
+			$v[$arr]['preNumber']   = (float)$row['preNumber'];
 		}
 		$json['status'] = 200;
 		$json['msg']    = 'success'; 
@@ -895,7 +897,89 @@ class InvOi extends CI_Controller {
 		}
 		str_alert(-1,'提交的是空数据'); 
     }
- 
+
+    public function updatePreNumber() {
+        $this->common_model->checkpurview(21);
+        $data = $this->input->post('postData',TRUE);
+
+        if (strlen($data)>0) {
+            $data = (array)json_decode($data, true);
+            if (is_array($data)) {
+                if (intval($data['preNumber'])>0) {
+
+                    $xyz = $this->mysql_model->get_rows('invoice_info', array('locationId' => $data['locationId'], 'invId' => $data['invId'], 'billType' => 'PRENUMBER'));
+                    if (count($xyz) > 0) {
+                        if (intval($data['preNumber']) != intval($xyz['preNumber'])) {
+
+                            $this->db->trans_begin();
+                            $this->mysql_model->update('invoice_info', array('preNumber' => $data['preNumber']), array('locationId' => $data['locationId'], 'invId' => $data['invId'], 'billType' => 'PRENUMBER'));
+                            if ($this->db->trans_status() === FALSE) {
+                                $this->db->trans_rollback();
+                                str_alert(-1,'333333333333'.$data);
+
+                            } else {
+                                $this->db->trans_commit();
+                                str_alert(-1,'4444444444'.$data);
+
+                            }
+                        }
+                    } else {
+                        $v['invId']         = intval($data['invId']);
+                        $v['amount']        = 0;
+                        $v['price']         = 0;
+                        $v['qty']           = 0;
+                        $v['locationId']    = intval($data['locationId']);
+                        $v['preNumber'] = intval($data['preNumber']);
+                        $v['billType']    = 'PRENUMBER';
+                        $v['transType']   = 150901;
+                        $v['iid']           = -100;
+
+                    }
+                    if (isset($v)) {
+                        $this->mysql_model->insert('invoice_info',$v);
+                    }
+                }
+//                foreach ($data['entries'] as $arr => $row) {
+//                    if (intval($row['preNumber'])>0) {
+//                        $xyz = $this->mysql_model->get_rows('invoice_info', array('locationId' => $row['locationId'], 'invId' => $row['invId'], 'billType' => 'PRENUMBER'));
+//                        if (count($xyz) > 0) {
+//                            if (intval($row['preNumber']) != intval($xyz['preNumber']))
+//                                $this->db->trans_begin();
+//                            $this->mysql_model->update('invoice_info', array('preNumber' => $row['preNumber']), array('locationId' => $row['locationId'], 'invId' => $row['invId'], 'billType' => 'PRENUMBER'));
+//                            if ($this->db->trans_status() === FALSE) {
+//                                $this->db->trans_rollback();
+//                            } else {
+//                                $this->db->trans_commit();
+//                            }
+//                        } else {
+//                            $v[$arr]['goods']         = $row['invNumber'].' '.$row['invName'].' '.$row['invSpec'];
+//                            $v[$arr]['description']   = '';
+//                            $v[$arr]['invId']         = intval($row['invId']);
+//                            $v[$arr]['invNumber']     = $row['invNumber'];
+//                            $v[$arr]['invName']       = $row['invName'];
+//                            $v[$arr]['invSpec']       = $row['invSpec'];
+//                            $v[$arr]['skuId']         = intval($row['skuId']);
+//                            $v[$arr]['skuName']       = $row['skuName'];
+//                            $v[$arr]['unitId']        = intval($row['unitId']);
+//                            $v[$arr]['amount']        = 0;
+//                            $v[$arr]['price']         = 0;
+//                            $v[$arr]['qty']           = 0;
+//                            $v[$arr]['mainUnit']      = $row['mainUnit'];
+//                            $v[$arr]['locationId']    = intval($row['locationId']);
+//                            $v[$arr]['locationName']  = $row['locationName'];
+//                            $v[$arr]['preNumber'] = intval($row['preNumber']);
+//                            $v[$arr]['billType']    = 'PRENUMBER';
+//                            $v[$arr]['transType']   = 150901;
+//                        }
+//                    }
+//                }
+//
+//                if (isset($v)) {
+//                    $this->mysql_model->insert('invoice_info',$v);
+//                }
+            }
+        }
+    }
 	
 
 	private function Oi_validform($data) {
