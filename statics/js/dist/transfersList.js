@@ -24,15 +24,17 @@ var queryConditions = {
 			}
 			var c = Public.setGrid();
 			queryConditions.beginDate = this.$_beginDate.val(), queryConditions.endDate = this.$_endDate.val();
-			var d = [{
-				name: "operating",
-				label: "操作",
-				width: 60,
-				fixed: !0,
-				formatter: a,
-				align: "center",
-				title: !1
-			}, {
+			var d = [
+			// 	{
+			// 	name: "operating",
+			// 	label: "操作",
+			// 	width: 60,
+			// 	fixed: !0,
+			// 	formatter: a,
+			// 	align: "center",
+			// 	title: !1
+			// },
+				{
 				name: "billDate",
 				label: "单据日期",
 				width: 100,
