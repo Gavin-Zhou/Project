@@ -15,7 +15,8 @@ var queryConditions = {
 		},
 		loadGrid: function() {
 			function a(a, b, c) {
-				var d = '<div class="operating" data-id="' + c.id + '"><span class="ui-icon ui-icon-pencil" title="修改"></span><span class="ui-icon ui-icon-trash" title="删除"></span></div>';
+				// var d = '<div class="operating" data-id="' + c.id + '"><span class="ui-icon ui-icon-pencil" title="修改"></span><span class="ui-icon ui-icon-trash" title="删除"></span></div>';
+                var d = '<div class="operating" data-id="' + c.id + '"><span class="ui-icon ui-icon-pencil" title="修改"></span></div>';
 				return d
 			}
 			function b(a, b, c) {
@@ -25,15 +26,15 @@ var queryConditions = {
 			var c = Public.setGrid();
 			queryConditions.beginDate = this.$_beginDate.val(), queryConditions.endDate = this.$_endDate.val();
 			var d = [
-			// 	{
-			// 	name: "operating",
-			// 	label: "操作",
-			// 	width: 60,
-			// 	fixed: !0,
-			// 	formatter: a,
-			// 	align: "center",
-			// 	title: !1
-			// },
+				{
+				name: "operating",
+				label: "操作",
+				width: 60,
+				fixed: !0,
+				formatter: a,
+				align: "center",
+				title: !1
+			},
 				{
 				name: "billDate",
 				label: "单据日期",
