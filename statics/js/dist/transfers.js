@@ -6,6 +6,7 @@ var curRow, curCol, curArrears, loading, urlParam = Public.urlParam(),
 	amountPlaces = Number(parent.SYSTEM.amountPlaces),
 	defaultPage = Public.getDefaultPage(),
 	disEditable = urlParam.disEditable,
+	couldAcceptTransfer = true,
 	THISPAGE = {
 		init: function(a) {
 			// alert(JSON(a));
@@ -300,7 +301,7 @@ var curRow, curCol, curArrears, loading, urlParam = Public.urlParam(),
 				}, {
 					name: "outLocationName",
 					label: "调出仓库",
-					nameExt: '<small id="batch-storageA">(批量)</small>',
+					// nameExt: '<small id="batch-storageA">(批量)</small>',
 					sortable: !1,
 					width: 100,
 					title: !0,
@@ -315,7 +316,7 @@ var curRow, curCol, curArrears, loading, urlParam = Public.urlParam(),
 				}, {
 					name: "inLocationName",
 					label: "调入仓库",
-					nameExt: '<small id="batch-storageB">(批量)</small>',
+					// nameExt: '<small id="batch-storageB">(批量)</small>',
 					width: 100,
 					title: !0,
 					editable: !0,
@@ -363,41 +364,77 @@ var curRow, curCol, curArrears, loading, urlParam = Public.urlParam(),
 					id: "id"
 				},
 				loadComplete: function(a) {
+                    function getAuthWarehouseArray(backData) {
+                        Public.ajaxGet("../basedata/invlocation?action=list&isDelete=2", {
+                        }, function(a) {
+                        	// var dataObject = JSON.stringify(a["data"]["rows"]);
+                        	// alert(dataObject);
+                        	backData(a["data"]["rows"]);
+                        });
+                    }
 					if (urlParam.id > 0) {
 						var b = a.rows,
 							c = b.length;
 						y.newId = c + 1;
-						for (var d = 0; c > d; d++) {
-							var e = d + 1,
-								f = b[d];
+                        var adminAuthWarehouseArray = [];
+                        //拿取管理员所有的仓库权限
+                        getAuthWarehouseArray(function (a) {
+							adminAuthWarehouseArray = a;
+							// alert(JSON.stringify(adminAuthWarehouseArray));
+                            var adminAuthWarehouseIDArray = [];
+                            for (var i = 0; i < adminAuthWarehouseArray.length; i ++) {
+                            	// alert(adminAuthWarehouseArray[i]["id"]);
+                                adminAuthWarehouseIDArray.push(adminAuthWarehouseArray[i]["id"]);
+                            }
+                            for (var d = 0; d < c; d++) {
+                                var e = d + 1,
+                                    f = b[d];
+                                // alert(f.inLocationId);
+                                // alert(JSON.stringify(adminAuthWarehouseIDArray));
 
-							if ($.isEmptyObject(b[d])) break;
-							var g = $.extend(!0, {
-								id: f.invId,
-								number: f.invNumber,
-								name: f.invName,
-								spec: f.invSpec,
-								unitId: f.unitId,
-								unitName: f.mainUnit,
-								isSerNum: f.isSerNum,
-								serNumList: f.serNumList || f.invSerNumList
-							}, f);
-							Business.cacheManage.getGoodsInfoByNumber(g.number, function(a) {
-								g.isSerNum = a.isSerNum, g.isWarranty = f.isWarranty = a.isWarranty, g.safeDays = f.safeDays = a.safeDays, g.invSkus = a.invSkus, g.id = f.invId, $("#" + e).data("goodsInfo", g).data("storageInfo", {
-									id: f.outLocationId,
-									name: f.outLocationName
-								}).data("inStorage", {
-									id: f.inLocationId,
-									name: f.inLocationName
-								}).data("unitInfo", {
-									unitId: f.unitId,
-									name: f.mainUnit
-								}).data("skuInfo", {
-									name: f.skuName,
-									id: f.skuId
-								})
-							}), 1 == f.isWarranty && $("#grid").jqGrid("showCol", "batch"), f.safeDays > 0 && ($("#grid").jqGrid("showCol", "prodDate"), $("#grid").jqGrid("showCol", "safeDays"), $("#grid").jqGrid("showCol", "validDate"))
-						}
+                                var haveAuthed = false;
+                                var i = adminAuthWarehouseIDArray.length;
+                                if (f.inLocationId !== undefined) {
+                                    while (i--) {
+                                        if (adminAuthWarehouseIDArray[i] === f.inLocationId) {
+                                            haveAuthed = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!haveAuthed) {
+                                        // 无法接受库存
+                                        couldAcceptTransfer = false;
+                                    }
+								}
+
+                                if ($.isEmptyObject(b[d])) break;
+                                var g = $.extend(!0, {
+                                    id: f.invId,
+                                    number: f.invNumber,
+                                    name: f.invName,
+                                    spec: f.invSpec,
+                                    unitId: f.unitId,
+                                    unitName: f.mainUnit,
+                                    isSerNum: f.isSerNum,
+                                    serNumList: f.serNumList || f.invSerNumList
+                                }, f);
+                                Business.cacheManage.getGoodsInfoByNumber(g.number, function(a) {
+                                    g.isSerNum = a.isSerNum, g.isWarranty = f.isWarranty = a.isWarranty, g.safeDays = f.safeDays = a.safeDays, g.invSkus = a.invSkus, g.id = f.invId, $("#" + e).data("goodsInfo", g).data("storageInfo", {
+                                        id: f.outLocationId,
+                                        name: f.outLocationName
+                                    }).data("inStorage", {
+                                        id: f.inLocationId,
+                                        name: f.inLocationName
+                                    }).data("unitInfo", {
+                                        unitId: f.unitId,
+                                        name: f.mainUnit
+                                    }).data("skuInfo", {
+                                        name: f.skuName,
+                                        id: f.skuId
+                                    })
+                                }), 1 == f.isWarranty && $("#grid").jqGrid("showCol", "batch"), f.safeDays > 0 && ($("#grid").jqGrid("showCol", "prodDate"), $("#grid").jqGrid("showCol", "safeDays"), $("#grid").jqGrid("showCol", "validDate"))
+                            }
+                        });
 					}
 				},
 				gridComplete: function() {
@@ -849,10 +886,17 @@ var curRow, curCol, curArrears, loading, urlParam = Public.urlParam(),
 			}), $(".wrapper").on("click", "#audit", function(b) {
                 b.preventDefault();
                 var c = $(this);
+                if (couldAcceptTransfer === false) {
+                	parent.Public.tips({
+						type: 1,
+						content: "对不起，您没有此调拨接收仓库的权限"
+					});
+                	return;
+				}
                 if (c.hasClass("ui-btn-dis")) return void parent.Public.tips({
-                    type: 2,
-                    content: "正在保存，请稍后..."
-                });
+					type: 2,
+					content: "正在保存，请稍后..."
+				});
                 var d = THISPAGE.getPostData();
                 d && ("edit" === originalData.stata && (d.id = originalData.id, d.stata = "edit"), c.addClass("ui-btn-dis"), Public.ajaxPost("../scm/invTf/confirm", {
                 	postData: JSON.stringify(d),

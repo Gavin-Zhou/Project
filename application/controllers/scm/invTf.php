@@ -274,8 +274,8 @@ class InvTf extends CI_Controller {
 		if (count($data)>0) {
 		     
 		    $this->db->trans_begin();
-			$this->mysql_model->update('invoice',array('isDelete'=>1),array('iid'=>$id));   
-			$this->mysql_model->update('invoice_info',array('isDelete'=>1),array('iid'=>$id));   
+			$this->mysql_model->update('invoice',array('isDelete'=>1),array('id'=>$id));
+			$this->mysql_model->update('invoice_info',array('isDelete'=>1),array('iid'=>$id));
 			if ($this->db->trans_status() === FALSE) {
 			    $this->db->trans_rollback();
 				str_alert(-1,'删除失败'); 
